@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KI API Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        .container {
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            min-height: 100px;
+            margin-bottom: 10px;
+            resize: vertical;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 10px 0;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #response {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #e9e9e9;
+            border-radius: 4px;
+            white-space: pre-wrap;
+        }
+        .loading {
+            display: none;
+            text-align: center;
+            margin: 10px 0;
+        }
+        .loading:after {
+            content: "...";
+            animation: dots 1.5s steps(5, end) infinite;
+        }
+        @keyframes dots {
+            0%, 20% { content: "."; }
+            40% { content: ".."; }
+            60%, 100% { content: "..."; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>KI API Generator</h1>
+        <p>Geben Sie Ihren Prompt ein und generieren Sie eine KI-Antwort:</p>
+        
+        <textarea id="prompt" placeholder="Was möchten Sie von der KI generieren lassen?"></textarea>
+        
+        <button id="generate-btn">Generieren</button>
+        <div id="loading" class="loading">Generiere Antwort</div>
+        
+        <h2>KI-Antwort:</h2>
+        <div id="response">Hier erscheint die generierte Antwort...</div>
+    </div>
+
+    <script>
+        document.getElementById('generate-btn').addEventListener('click', async function() {
+            const prompt = document.getElementById('prompt').value;
+            const responseDiv = document.getElementById('response');
+            const loadingDiv = document.getElementById('loading');
+            
+            if (!prompt) {
+                responseDiv.textContent = "Bitte geben Sie einen Prompt ein.";
+                return;
+            }
+            
+            // Loading anzeigen
+            loadingDiv.style.display = 'block';
+            responseDiv.textContent = "";
+            
+            try {
+                // Hier würden Sie normalerweise Ihre API aufrufen
+                // Dies ist eine Simulation der API-Antwort
+                const simulatedResponse = await simulateApiCall(prompt);
+                
+                responseDiv.textContent = simulatedResponse;
+            } catch (error) {
+                responseDiv.textContent = "Fehler beim Abrufen der KI-Antwort: " + error.message;
+            } finally {
+                loadingDiv.style.display = 'none';
+            }
+        });
+        
+        // Diese Funktion simuliert einen API-Aufruf
+        async function simulateApiCall(prompt) {
+            // In einer echten Implementierung würden Sie hier eine API wie OpenAI aufrufen
+            // Beispiel: fetch('https://api.openai.com/v1/completions', {...})
+            
+            // Simulation einer Verzögerung
+            await new Promise(resolve => setTimeout(resolve, 1500));
+            
+            // Simulation einer KI-Antwort
+            return `Antwort auf: "${prompt}"\n\nDies ist eine simulierte KI-Antwort. In einer echten Implementierung würde dieser Text von einer KI-API wie OpenAI generiert werden. Sie würden hier den API-Schlüssel und die entsprechende Endpoint-URL verwenden, um echte KI-Antworten zu erhalten.`;
+        }
+    </script>
+</body>
+</html>
